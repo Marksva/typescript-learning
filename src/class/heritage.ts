@@ -14,10 +14,12 @@
 */
 
 class Usuario{
-  public nome: string;
-  public email: string;
+  protected id: number; // Podemos chamar na classe usuario ou classes que extende a classe usuario
+  nome: string;
+  email: string;
 
-  constructor(nome: string, email: string){
+  constructor(id: number, nome: string, email: string){
+    this.id = id;
     this.nome = nome;
     this.email = email;
   }
@@ -26,27 +28,29 @@ class Usuario{
 
 
 class Admin extends Usuario{
-  public cargo: string;
-  public nivel: number;
+  cargo: string;
+  nivel: number;
 
-  constructor(nome: string, email: string, cargo: string, nivel: number){
+  constructor(id: number, nome: string, email: string, cargo: string, nivel: number){
     // Chamando o cosntrutor da classe pai.
-    super(nome, email);
+    super(id, nome, email);
     
     this.cargo = cargo;
     this.nivel = nivel;
   }
 
-  public mudarCargo(): void {
-    console.log("ALTERANDO CARGO");
+  protected mudarCargo(cargo: string): void {
+    console.log("ALTERANDO CARGO PARA: ", cargo);
+    console.log("ID DO USUARIO: ", this.id)
+  }
+
+
+  acessarAdmin(){
+    this.mudarCargo("Designer");
   }
 
 }
 
-const usuario1 = new Admin("Matheus", "matheus@teste.com", "Programador", 2);
+const usuario1 = new Admin(123, "jose", "jose@teste.com", "Programador", 2);
 
-usuario1.cargo = "Designer";
-
-usuario1.mudarCargo();
-
-console.log(usuario1);
+usuario1.acessarAdmin();
