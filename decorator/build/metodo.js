@@ -1,4 +1,3 @@
-// Decorator Método, ele só é chamado quando nosso método for chamado em algum local.
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,27 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-function verificaPessoa(idade) {
-    return (target, key, descriptor) => {
-        // console.log("Target: ", target);
-        // console.log("Key: ", key);
-        // console.log("Descriptor: ", descriptor);
-        const metodoOriginal = descriptor.value; // Salvar nosso metodo original
-        // Reescrever nosso método.
-        descriptor.value = function () {
-            if (idade < 18) {
-                console.log("Estamos cadastrando como Pessoa menor de idade");
-                // Agora queremos retornar o metodo original para ele ser executado
-                return metodoOriginal.apply(this);
-            }
-            else {
-                console.log("Adulto cadastrado no sistema");
-                // Agora queremos retornar o metodo original para ele ser executado
-                return metodoOriginal.apply(this);
-            }
-        };
-    };
-}
+// Decorator Método, ele só é chamado quando nosso método for chamado em algum local.
+import { verificaPessoa } from "./decorator/verificaPessoa.js";
 class Pessoa {
     constructor(nome) {
         this.nome = nome;
@@ -45,4 +25,3 @@ __decorate([
 ], Pessoa.prototype, "cadastrarPessoa", null);
 const pessoa1 = new Pessoa("Matheus F");
 pessoa1.cadastrarPessoa();
-export {};
